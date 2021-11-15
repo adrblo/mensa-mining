@@ -8,6 +8,7 @@ authors = ["Adrian <adrian@adrblo.de>"]
 python = "^3.9"
 pydantic = "^1.8.2"
 requests = "^2.26.0"
+SQLAlchemy = "^1.4.26"
 
 [tool.poetry.dev-dependencies]
 
