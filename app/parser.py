@@ -1,5 +1,6 @@
 import json
 import requests
+import logging
 
 from app.core.config import settings
 from app.database import Base
@@ -58,11 +59,18 @@ def map_dish_schema_to_model(dish_list: schemas.DishList):
 if __name__ == "__main__":
     from app import models
 
+    logging.basicConfig(filename='parse.log', format='%(asctime)s - %(levelname)s - %(message)s',
+                        level=logging.INFO)
+
     session = SessionLocal()
 
     Base.metadata.create_all(engine)
 
+    logging.info('Start parsing')
+
     db_dishes = map_dish_schema_to_model(schemas.DishList(dishes=get_mensa_api_response()))
+
+    new_dishes = 0
 
     # remove duplicates
     for dish, allergens, badges in db_dishes:
@@ -82,8 +90,12 @@ if __name__ == "__main__":
 
             session.commit()
 
+            new_dishes += 1
+
     session.commit()
 
     session.close()
+
+    logging.info(f'Parsed {new_dishes} new dishes')
 
 
