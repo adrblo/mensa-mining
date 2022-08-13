@@ -74,7 +74,8 @@ if __name__ == "__main__":
 
     # remove duplicates
     for dish, allergens, badges in db_dishes:
-        if not session.query(models.Dish).filter_by(name_de=dish.name_de, date=dish.date).first():
+        if not session.query(models.Dish).filter_by(name_de=dish.name_de, date=dish.date,
+                                                    restaurant=dish.restaurant).first():
             session.add(dish)
             session.commit()
 
