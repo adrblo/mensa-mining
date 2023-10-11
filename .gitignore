@@ -3,7 +3,9 @@
 __pycache__/
 venv/
 
-db.sqlite
+*.sqlite
+*.csv
 .env
 
 *.log
+.DS_Store
